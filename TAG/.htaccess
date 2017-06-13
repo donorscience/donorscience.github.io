@@ -1,5 +1,5 @@
 AuthName "Thunder Bay Art Gallery"
 AuthType Basic
-AuthUserFile /TAG/.htpasswd
+AuthUserFile /.htpasswd
 
 Require valid-user
