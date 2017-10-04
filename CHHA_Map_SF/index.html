@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="http://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="http://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/HearingLossPrevalencebyDisseminationArea_0.js"></script>
+        <script src="data/OreSites_1.js"></script>
+        <script src="data/PetroleumWells_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_HearingLossPrevalencebyDisseminationArea_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DAUID'] !== null ? Autolinker.link(String(feature.properties['DAUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CDUID'] !== null ? Autolinker.link(String(feature.properties['CDUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CDNAME'] !== null ? Autolinker.link(String(feature.properties['CDNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CDTYPE'] !== null ? Autolinker.link(String(feature.properties['CDTYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CSDUID'] !== null ? Autolinker.link(String(feature.properties['CSDUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CSDNAME'] !== null ? Autolinker.link(String(feature.properties['CSDNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CSDTYPE'] !== null ? Autolinker.link(String(feature.properties['CSDTYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCSUID'] !== null ? Autolinker.link(String(feature.properties['CCSUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCSNAME'] !== null ? Autolinker.link(String(feature.properties['CCSNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ERUID'] !== null ? Autolinker.link(String(feature.properties['ERUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ERNAME'] !== null ? Autolinker.link(String(feature.properties['ERNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CMAPUID'] !== null ? Autolinker.link(String(feature.properties['CMAPUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CMAUID'] !== null ? Autolinker.link(String(feature.properties['CMAUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CMANAME'] !== null ? Autolinker.link(String(feature.properties['CMANAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CMATYPE'] !== null ? Autolinker.link(String(feature.properties['CMATYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SACCODE'] !== null ? Autolinker.link(String(feature.properties['SACCODE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SACTYPE'] !== null ? Autolinker.link(String(feature.properties['SACTYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CTUID'] !== null ? Autolinker.link(String(feature.properties['CTUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CTNAME'] !== null ? Autolinker.link(String(feature.properties['CTNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRUID'] !== null ? Autolinker.link(String(feature.properties['PRUID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRNAME'] !== null ? Autolinker.link(String(feature.properties['PRNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Top5_Poor'] !== null ? Autolinker.link(String(feature.properties['Top5_Poor'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Top5_Rich'] !== null ? Autolinker.link(String(feature.properties['Top5_Rich'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] !== null ? Autolinker.link(String(feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_HearingLossPrevalencebyDisseminationArea_0_0(feature) {
+            if (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] >= 0.000000 && feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] <= 0.056714 ) {
+                return {
+                pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,0.6)',
+            }
+            }
+            if (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] >= 0.056714 && feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] <= 0.113429 ) {
+                return {
+                pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(254,214,196,0.6)',
+            }
+            }
+            if (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] >= 0.113429 && feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] <= 0.170143 ) {
+                return {
+                pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(252,164,135,0.6)',
+            }
+            }
+            if (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] >= 0.170143 && feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] <= 0.226857 ) {
+                return {
+                pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(252,112,80,0.6)',
+            }
+            }
+            if (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] >= 0.226857 && feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] <= 0.283571 ) {
+                return {
+                pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(235,54,42,0.6)',
+            }
+            }
+            if (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] >= 0.283571 && feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] <= 0.340286 ) {
+                return {
+                pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(186,20,25,0.6)',
+            }
+            }
+            if (feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] >= 0.340286 && feature.properties['CHHA_Hearingloss_Prevs_final (1)_HLoss_Prev'] <= 0.397000 ) {
+                return {
+                pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,0.6)',
+            }
+            }
+        }
+        map.createPane('pane_HearingLossPrevalencebyDisseminationArea_0');
+        map.getPane('pane_HearingLossPrevalencebyDisseminationArea_0').style.zIndex = 400;
+        map.getPane('pane_HearingLossPrevalencebyDisseminationArea_0').style['mix-blend-mode'] = 'normal';
+    var layer_HearingLossPrevalencebyDisseminationArea_0 = new L.geoJson(json_HearingLossPrevalencebyDisseminationArea_0, {
+        attribution: '<a href=""></a>',
+        pane: 'pane_HearingLossPrevalencebyDisseminationArea_0',
+        onEachFeature: pop_HearingLossPrevalencebyDisseminationArea_0,
+        style: style_HearingLossPrevalencebyDisseminationArea_0_0,
+    });
+        bounds_group.addLayer(layer_HearingLossPrevalencebyDisseminationArea_0);
+        map.addLayer(layer_HearingLossPrevalencebyDisseminationArea_0);
+        function pop_OreSites_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MEAN_X'] !== null ? Autolinker.link(String(feature.properties['MEAN_X'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MEAN_Y'] !== null ? Autolinker.link(String(feature.properties['MEAN_Y'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UID'] !== null ? Autolinker.link(String(feature.properties['UID'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_OreSites_1_0() {
+            return {
+                pane: 'pane_OreSites_1',
+                radius: 9.6,
+                opacity: 1,
+                color: 'rgba(0,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,206,206,0.6)',
+            }
+        }
+        map.createPane('pane_OreSites_1');
+        map.getPane('pane_OreSites_1').style.zIndex = 401;
+        map.getPane('pane_OreSites_1').style['mix-blend-mode'] = 'normal';
+        var layer_OreSites_1 = new L.geoJson(json_OreSites_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_OreSites_1',
+            onEachFeature: pop_OreSites_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_OreSites_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_OreSites_1);
+        map.addLayer(layer_OreSites_1);
+        function pop_PetroleumWells_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['feature_id'] !== null ? Autolinker.link(String(feature.properties['feature_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['datemin'] !== null ? Autolinker.link(String(feature.properties['datemin'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['datemax'] !== null ? Autolinker.link(String(feature.properties['datemax'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['haccmin'] !== null ? Autolinker.link(String(feature.properties['haccmin'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['haccmax'] !== null ? Autolinker.link(String(feature.properties['haccmax'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['map_sel'] !== null ? Autolinker.link(String(feature.properties['map_sel'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['map_sel_en'] !== null ? Autolinker.link(String(feature.properties['map_sel_en'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['map_sel_fr'] !== null ? Autolinker.link(String(feature.properties['map_sel_fr'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PetroleumWells_2_0() {
+            return {
+                pane: 'pane_PetroleumWells_2',
+                shape: 'triangle',
+                radius: 13.6,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+            }
+        }
+        map.createPane('pane_PetroleumWells_2');
+        map.getPane('pane_PetroleumWells_2').style.zIndex = 402;
+        map.getPane('pane_PetroleumWells_2').style['mix-blend-mode'] = 'normal';
+        var layer_PetroleumWells_2 = new L.geoJson(json_PetroleumWells_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_PetroleumWells_2',
+            onEachFeature: pop_PetroleumWells_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_PetroleumWells_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PetroleumWells_2);
+        map.addLayer(layer_PetroleumWells_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/PetroleumWells_2.png" /> Petroleum Wells': layer_PetroleumWells_2,'<img src="legend/OreSites_1.png" /> Ore Sites': layer_OreSites_1,'Hearing Loss Prevalence by Dissemination Area<br /><table><tr><td style="text-align: center;"><img src="legend/HearingLossPrevalencebyDisseminationArea_0_050.png" /></td><td>0 - 5%</td></tr><tr><td style="text-align: center;"><img src="legend/HearingLossPrevalencebyDisseminationArea_0_6111.png" /></td><td>6 - 11%</td></tr><tr><td style="text-align: center;"><img src="legend/HearingLossPrevalencebyDisseminationArea_0_12162.png" /></td><td>12 - 16%</td></tr><tr><td style="text-align: center;"><img src="legend/HearingLossPrevalencebyDisseminationArea_0_17223.png" /></td><td>17 - 22%</td></tr><tr><td style="text-align: center;"><img src="legend/HearingLossPrevalencebyDisseminationArea_0_23284.png" /></td><td>23 - 28%</td></tr><tr><td style="text-align: center;"><img src="legend/HearingLossPrevalencebyDisseminationArea_0_29345.png" /></td><td>29 - 34%</td></tr><tr><td style="text-align: center;"><img src="legend/HearingLossPrevalencebyDisseminationArea_0_34406.png" /></td><td>34 - 40%</td></tr></table>': layer_HearingLossPrevalencebyDisseminationArea_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
